@@ -1,0 +1,795 @@
+// Decompiled by DJ v3.7.7.81 Copyright 2004 Atanas Neshkov  Date: 8/23/2008 1:15:54 AM
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   ATMFrame.java
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+import java.text.DateFormat;
+import java.util.Calendar;
+import javax.swing.*;
+
+public class ATMFrame extends JFrame
+    implements ActionListener
+{
+
+    public ATMFrame()
+    {
+        jBt7 = new JButton();
+        jBt4 = new JButton();
+        jBt1 = new JButton();
+        jBt0 = new JButton();
+        jBtDec = new JButton();
+        jBt2 = new JButton();
+        jBt5 = new JButton();
+        jBt8 = new JButton();
+        jBCancel = new JButton();
+        jBt3 = new JButton();
+        jBt6 = new JButton();
+        jBt9 = new JButton();
+        withdrawBt = new JButton();
+        depositBt = new JButton();
+        transferBt = new JButton();
+        balanceBt = new JButton();
+        savingBt = new JButton();
+        currentBt = new JButton();
+        enterBt = new JButton();
+        pinChangeBt = new JButton();
+        logoLbl = new JLabel();
+        jtf = new JTextField();
+        msgLbl = new JLabel();
+        jPwdField = new JPasswordField();
+        try
+        {
+            jbInit();
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+            String s = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=ATMDataBase.mdb";
+            con = DriverManager.getConnection(s);
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    private void jbInit()
+        throws Exception
+    {
+        getContentPane().setLayout(null);
+        setBounds(200, 200, 551, 217);
+        setTitle("ATM");
+        setResizable(false);
+        getContentPane().setBackground(new Color(236, 236, 131));
+        setDefaultCloseOperation(3);
+        jBt7.setText("7");
+        jBt7.setForeground(Color.red);
+        jBt7.setFocusPainted(false);
+        jBt7.setBounds(new Rectangle(15, 90, 40, 35));
+        jBt7.setMargin(new Insets(0, 0, 0, 0));
+        jBt4.setText("4");
+        jBt4.setForeground(Color.red);
+        jBt4.setFocusPainted(false);
+        jBt4.setBounds(new Rectangle(15, 50, 40, 35));
+        jBt4.setMargin(new Insets(0, 0, 0, 0));
+        jBt1.setText("1");
+        jBt1.setForeground(Color.red);
+        jBt1.setFocusPainted(false);
+        jBt1.setBounds(new Rectangle(15, 10, 40, 35));
+        jBt1.setMargin(new Insets(0, 0, 0, 0));
+        jBt0.setText("0");
+        jBt0.setForeground(Color.red);
+        jBt0.setFocusPainted(false);
+        jBt0.setBounds(new Rectangle(15, 130, 40, 35));
+        jBt0.setMargin(new Insets(0, 0, 0, 0));
+        jBtDec.setText("C");
+        jBtDec.setForeground(Color.red);
+        jBtDec.setFocusPainted(false);
+        jBtDec.setBounds(new Rectangle(60, 130, 40, 35));
+        jBtDec.setMargin(new Insets(0, 0, 0, 0));
+        jBt2.setText("2");
+        jBt2.setForeground(Color.red);
+        jBt2.setFocusPainted(false);
+        jBt2.setBounds(new Rectangle(60, 10, 40, 35));
+        jBt2.setMargin(new Insets(0, 0, 0, 0));
+        jBt5.setText("5");
+        jBt5.setForeground(Color.red);
+        jBt5.setFocusPainted(false);
+        jBt5.setBounds(new Rectangle(60, 50, 40, 35));
+        jBt5.setMargin(new Insets(0, 0, 0, 0));
+        jBt8.setText("8");
+        jBt8.setForeground(Color.red);
+        jBt8.setFocusPainted(false);
+        jBt8.setBounds(new Rectangle(60, 90, 40, 35));
+        jBt8.setMargin(new Insets(0, 0, 0, 0));
+        jBCancel.setText("CE");
+        jBCancel.setForeground(Color.red);
+        jBCancel.setFocusPainted(false);
+        jBCancel.setBounds(new Rectangle(105, 130, 40, 35));
+        jBCancel.setMargin(new Insets(0, 0, 0, 0));
+        jBt3.setText("3");
+        jBt3.setForeground(Color.red);
+        jBt3.setFocusPainted(false);
+        jBt3.setBounds(new Rectangle(105, 10, 40, 35));
+        jBt3.setMargin(new Insets(0, 0, 0, 0));
+        jBt6.setText("6");
+        jBt6.setForeground(Color.red);
+        jBt6.setFocusPainted(false);
+        jBt6.setBounds(new Rectangle(105, 50, 40, 35));
+        jBt6.setMargin(new Insets(0, 0, 0, 0));
+        jBt9.setText("9");
+        jBt9.setForeground(Color.red);
+        jBt9.setFocusPainted(false);
+        jBt9.setBounds(new Rectangle(105, 90, 40, 35));
+        jBt9.setMargin(new Insets(0, 0, 0, 0));
+        withdrawBt.setText("Withdraw");
+        withdrawBt.setForeground(Color.red);
+        withdrawBt.setFocusPainted(false);
+        withdrawBt.setBounds(new Rectangle(440, 15, 85, 30));
+        withdrawBt.setMargin(new Insets(0, 0, 0, 0));
+        depositBt.setText("Deposit");
+        depositBt.setForeground(Color.red);
+        depositBt.setFocusPainted(false);
+        depositBt.setBounds(new Rectangle(350, 15, 85, 30));
+        transferBt.setText("Transfer");
+        transferBt.setForeground(Color.red);
+        transferBt.setFocusPainted(false);
+        transferBt.setBounds(new Rectangle(440, 55, 85, 30));
+        balanceBt.setText("Balance");
+        balanceBt.setForeground(Color.red);
+        balanceBt.setFocusPainted(false);
+        balanceBt.setBounds(new Rectangle(350, 55, 85, 30));
+        savingBt.setText("Saving");
+        savingBt.setForeground(Color.red);
+        savingBt.setFocusPainted(false);
+        savingBt.setBounds(new Rectangle(440, 95, 85, 30));
+        currentBt.setText("Current");
+        currentBt.setForeground(Color.red);
+        currentBt.setFocusPainted(false);
+        currentBt.setBounds(new Rectangle(350, 95, 85, 30));
+        enterBt.setText("Enter");
+        enterBt.setForeground(Color.red);
+        enterBt.setFocusPainted(false);
+        enterBt.setBounds(new Rectangle(350, 135, 85, 30));
+        pinChangeBt.setText("PinChange");
+        pinChangeBt.setForeground(Color.red);
+        pinChangeBt.setFocusPainted(false);
+        pinChangeBt.setBounds(new Rectangle(440, 135, 85, 30));
+        pinChangeBt.setMargin(new Insets(0, 0, 0, 0));
+        logoLbl.setText("ICICI Bank ATM");
+        logoLbl.setBounds(new Rectangle(155, 10, 175, 30));
+        logoLbl.setHorizontalAlignment(0);
+        logoLbl.setFont(new Font("Tahoma", 1, 11));
+        logoLbl.setForeground(new Color(13, 22, 247));
+        jtf.setBounds(new Rectangle(160, 135, 170, 30));
+        jtf.setFont(new Font("Tahoma", 1, 11));
+        jtf.setForeground(new Color(13, 22, 247));
+        msgLbl.setText("Enter AccNo");
+        msgLbl.setBounds(new Rectangle(155, 65, 180, 50));
+        msgLbl.setHorizontalAlignment(0);
+        msgLbl.setFont(new Font("Tahoma", 1, 11));
+        msgLbl.setForeground(new Color(13, 22, 247));
+        jPwdField.setBounds(new Rectangle(160, 135, 170, 30));
+        jPwdField.setForeground(new Color(13, 22, 247));
+        jPwdField.setFont(new Font("Tahoma", 1, 11));
+        getContentPane().add(jPwdField, null);
+        getContentPane().add(msgLbl, null);
+        getContentPane().add(jtf, null);
+        getContentPane().add(logoLbl, null);
+        getContentPane().add(pinChangeBt, null);
+        getContentPane().add(enterBt, null);
+        getContentPane().add(currentBt, null);
+        getContentPane().add(savingBt, null);
+        getContentPane().add(balanceBt, null);
+        getContentPane().add(transferBt, null);
+        getContentPane().add(depositBt, null);
+        getContentPane().add(withdrawBt, null);
+        getContentPane().add(jBt9, null);
+        getContentPane().add(jBt6, null);
+        getContentPane().add(jBt3, null);
+        getContentPane().add(jBCancel, null);
+        getContentPane().add(jBt8, null);
+        getContentPane().add(jBt5, null);
+        getContentPane().add(jBt2, null);
+        getContentPane().add(jBtDec, null);
+        getContentPane().add(jBt0, null);
+        getContentPane().add(jBt1, null);
+        getContentPane().add(jBt4, null);
+        getContentPane().add(jBt7, null);
+        jBt1.addActionListener(this);
+        jBt2.addActionListener(this);
+        jBt3.addActionListener(this);
+        jBt4.addActionListener(this);
+        jBt5.addActionListener(this);
+        jBt6.addActionListener(this);
+        jBt7.addActionListener(this);
+        jBt8.addActionListener(this);
+        jBt9.addActionListener(this);
+        jBt0.addActionListener(this);
+        jBtDec.addActionListener(this);
+        jBCancel.addActionListener(this);
+        currentBt.addActionListener(this);
+        savingBt.addActionListener(this);
+        depositBt.addActionListener(this);
+        withdrawBt.addActionListener(this);
+        pinChangeBt.addActionListener(this);
+        enterBt.addActionListener(this);
+        balanceBt.addActionListener(this);
+        transferBt.addActionListener(this);
+        jPwdField.setVisible(false);
+        jtf.setVisible(true);
+        jPwdField.setEnabled(false);
+        jtf.setEnabled(false);
+        depositBt.setEnabled(false);
+        withdrawBt.setEnabled(false);
+        currentBt.setEnabled(false);
+        savingBt.setEnabled(false);
+        balanceBt.setEnabled(false);
+        transferBt.setEnabled(false);
+        pinChangeBt.setEnabled(false);
+    }
+
+    public void actionPerformed(ActionEvent actionevent)
+    {
+        String s;
+        String s1;
+        s = actionevent.getActionCommand();
+        if(!s.equals("Enter"))
+            break MISSING_BLOCK_LABEL_2473;
+        s1 = msgLbl.getText();
+        if(s1.equals("Enter AccNo"))
+        {
+            accNo = jtf.getText();
+            if(accNo.equals(""))
+            {
+                JOptionPane.showMessageDialog(this, "AccNo can't be blank", "Error", 0);
+                return;
+            }
+            msgLbl.setText("Enter PinNo");
+            jPwdField.setVisible(true);
+            jPwdField.setText("");
+            jtf.setVisible(false);
+            flagAccPwd = true;
+            break MISSING_BLOCK_LABEL_4683;
+        }
+        if(s1.equals("Enter PinNo"))
+        {
+            pinNo = jPwdField.getText();
+            if(pinNo.equals(""))
+            {
+                JOptionPane.showMessageDialog(this, "PinNo can't be blank", "Error", 0);
+                return;
+            }
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            try
+            {
+                stmt = con.createStatement(1004, 1007);
+                rs = stmt.executeQuery((new StringBuilder()).append("select * from AccDetails where AccNo='").append(accNo).append("' and PinNo='").append(pinNo).append("'").toString());
+                if(rs.first())
+                {
+                    msgLbl.setText("Enter Account Type");
+                    logoLbl.setText(rs.getString("Name"));
+                    depositBt.setEnabled(false);
+                    withdrawBt.setEnabled(false);
+                    currentBt.setEnabled(true);
+                    savingBt.setEnabled(true);
+                    balanceBt.setEnabled(false);
+                    transferBt.setEnabled(false);
+                    pinChangeBt.setEnabled(false);
+                } else
+                {
+                    JOptionPane.showMessageDialog(this, "You Entered Wrong PinNo.", "Error", 0);
+                    msgLbl.setText("Enter AccNo");
+                    jPwdField.setVisible(false);
+                    jtf.setVisible(true);
+                    jtf.setText("");
+                    enterBt.setEnabled(true);
+                    accNo = pinNo = null;
+                    flagAccPwd = false;
+                }
+                rs.close();
+                stmt.close();
+            }
+            catch(SQLException sqlexception1)
+            {
+                sqlexception1.printStackTrace();
+            }
+            break MISSING_BLOCK_LABEL_4683;
+        }
+        if(s1.equals("Enter Other's AccNo"))
+        {
+            otherAccNo = jtf.getText();
+            msgLbl.setText("Enter Amount");
+            jtf.setText("");
+            jPwdField.setVisible(false);
+            jtf.setVisible(true);
+            enterBt.setEnabled(true);
+            flagAccPwd = false;
+            break MISSING_BLOCK_LABEL_4683;
+        }
+        if(!s1.equals("Enter Amount"))
+            break MISSING_BLOCK_LABEL_2184;
+        long l;
+        java.util.Date date1;
+        int j;
+        Object obj;
+        long l1;
+        String s7;
+        try
+        {
+            if(jtf.getText() == null || jtf.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(this, "Amount can't be left blank", "Error", 0);
+                return;
+            }
+        }
+        catch(SQLException sqlexception2)
+        {
+            sqlexception2.printStackTrace();
+            break MISSING_BLOCK_LABEL_4683;
+        }
+        amt = Long.parseLong(jtf.getText());
+        if(amt % 100L != 0L)
+        {
+            JOptionPane.showMessageDialog(this, "Enter correct amount \n multiples of 100 only", "Error", 0);
+            return;
+        }
+        stmt = con.createStatement(1004, 1007);
+        rs = stmt.executeQuery((new StringBuilder()).append("select * from AccDetails where AccNo='").append(accNo).append("'").toString());
+        if(!rs.next())
+            break MISSING_BLOCK_LABEL_2162;
+        l = rs.getInt("Balance");
+        if(l - amt < 5000L && (trType.equals("Withdraw") || trType.equals("Transfer")))
+        {
+            JOptionPane.showMessageDialog(this, "You are exceeding minimum balance", "Error", 0);
+            return;
+        }
+        if(!trType.equals("Withdraw") && !trType.equals("Transfer"))
+            break MISSING_BLOCK_LABEL_917;
+        date1 = Calendar.getInstance().getTime();
+        obj = DateFormat.getDateInstance(3).format(date1);
+        rs = stmt.executeQuery((new StringBuilder()).append("select sum(Amount) from Transactions where AccNo='").append(accNo).append("' and TrDate=DateValue('").append(((String) (obj))).append("') and (TrType='Withdraw' or TrType='Transfer');").toString());
+        if(!rs.next())
+            break MISSING_BLOCK_LABEL_917;
+        l1 = rs.getInt(1);
+        if(l1 == 20000L)
+        {
+            JOptionPane.showMessageDialog(this, "Today you have already done transaction of \nRs.20,000 One day withdrawl/transfer limit", "Error", 0);
+            return;
+        }
+        if(l1 + amt > 20000L)
+        {
+            JOptionPane.showMessageDialog(this, (new StringBuilder()).append("You are exceeding transaction limit per day\n Today you can ").append(trType).append(" a maximum of Rs.").append(20000L - l1).toString(), "Error", 0);
+            return;
+        }
+        if(trType.equals("Withdraw"))
+        {
+            stmt.execute((new StringBuilder()).append("update AccDetails set Balance=").append(l - amt).append(" where AccNo='").append(accNo).append("'").toString());
+            j = stmt.getUpdateCount();
+            if(j == -1)
+                JOptionPane.showMessageDialog(this, "Error occured while withdrawing try again", "Error", 0);
+            else
+                JOptionPane.showMessageDialog(this, "Withdraw Successful", "Message", 1);
+            if(j != -1)
+            {
+                obj = Calendar.getInstance().getTime();
+                s7 = DateFormat.getDateInstance(3).format(((java.util.Date) (obj)));
+                stmt.execute((new StringBuilder()).append("insert into Transactions(TrDate,AccNo,AccType,TrType,OtherAccNo,Amount) values('").append(s7).append("','").append(accNo).append("','").append(accType).append("','").append(trType).append("','").append(accNo).append("',").append(amt).append(")").toString());
+            }
+            trType = "";
+            jtf.setText("");
+            msgLbl.setText("Enter Transaction Choice");
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(true);
+            withdrawBt.setEnabled(true);
+            balanceBt.setEnabled(true);
+            transferBt.setEnabled(true);
+            pinChangeBt.setEnabled(true);
+            flagAccPwd = false;
+        } else
+        if(trType.equals("Deposit"))
+        {
+            stmt.execute((new StringBuilder()).append("update AccDetails set Balance=").append(l + amt).append(" where AccNo='").append(accNo).append("'").toString());
+            j = stmt.getUpdateCount();
+            if(j == -1)
+                JOptionPane.showMessageDialog(this, "Error occured while depositing try again", "Error", 0);
+            else
+                JOptionPane.showMessageDialog(this, "Deposited Successfully", "Message", 1);
+            if(j != -1)
+            {
+                obj = Calendar.getInstance().getTime();
+                s7 = DateFormat.getDateInstance(3).format(((java.util.Date) (obj)));
+                stmt.execute((new StringBuilder()).append("insert into Transactions(TrDate,AccNo,AccType,TrType,OtherAccNo,Amount) values('").append(s7).append("','").append(accNo).append("','").append(accType).append("','").append(trType).append("','").append(accNo).append("',").append(amt).append(")").toString());
+            }
+            trType = "";
+            jtf.setText("");
+            msgLbl.setText("Enter Transaction Choice");
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(true);
+            withdrawBt.setEnabled(true);
+            balanceBt.setEnabled(true);
+            transferBt.setEnabled(true);
+            pinChangeBt.setEnabled(true);
+            flagAccPwd = false;
+        } else
+        if(trType.equals("Transfer"))
+        {
+            flagTran = true;
+            stmt.execute((new StringBuilder()).append("update AccDetails set Balance=").append(l - amt).append(" where AccNo='").append(accNo).append("'").toString());
+            j = stmt.getUpdateCount();
+            if(j == -1)
+            {
+                flagTran = false;
+            } else
+            {
+                rs = stmt.executeQuery((new StringBuilder()).append("select * from AccDetails where AccNo='").append(otherAccNo).append("'").toString());
+                if(!rs.first())
+                {
+                    flagTran = false;
+                } else
+                {
+                    stmt.execute((new StringBuilder()).append("update AccDetails set Balance=").append((long)rs.getInt("Balance") + amt).append(" where AccNo='").append(otherAccNo).append("'").toString());
+                    j = stmt.getUpdateCount();
+                    if(j == -1)
+                        flagTran = false;
+                }
+            }
+            if(flagTran)
+            {
+                JOptionPane.showMessageDialog(this, "Transfer Successful", "Message", 1);
+                obj = Calendar.getInstance().getTime();
+                s7 = DateFormat.getDateInstance(3).format(((java.util.Date) (obj)));
+                stmt.execute((new StringBuilder()).append("insert into Transactions(TrDate,AccNo,AccType,TrType,OtherAccNo,Amount) values('").append(s7).append("','").append(accNo).append("','").append(accType).append("','Transfer','").append(otherAccNo).append("',").append(amt).append(")").toString());
+                stmt.execute((new StringBuilder()).append("insert into Transactions(TrDate,AccNo,AccType,TrType,OtherAccNo,Amount) values('").append(s7).append("','").append(otherAccNo).append("','").append(accType).append("','Deposit','").append(accNo).append("',").append(amt).append(")").toString());
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Error occured while transfering", "Error", 0);
+            }
+            stmt.close();
+            otherAccNo = null;
+            trType = "";
+            jtf.setText("");
+            msgLbl.setText("Enter Transaction Choice");
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(true);
+            withdrawBt.setEnabled(true);
+            balanceBt.setEnabled(true);
+            transferBt.setEnabled(true);
+            pinChangeBt.setEnabled(true);
+            flagAccPwd = false;
+        }
+        break MISSING_BLOCK_LABEL_4683;
+        JOptionPane.showMessageDialog(this, "Error occured while processing try again", "Error", 0);
+        break MISSING_BLOCK_LABEL_4683;
+        if(s1.equals("Enter New Pin No."))
+            try
+            {
+                stmt = con.createStatement(1004, 1007);
+                stmt.execute((new StringBuilder()).append("update AccDetails set PinNo='").append(jPwdField.getText()).append("' where AccNo='").append(accNo).append("' and PinNo='").append(pinNo).append("'").toString());
+                int i = stmt.getUpdateCount();
+                if(i == -1)
+                    JOptionPane.showMessageDialog(this, "Error occured while changing PinNo", "Error", 0);
+                else
+                    JOptionPane.showMessageDialog(this, "Your PinNo has been changed", "Message", 1);
+                msgLbl.setText("Enter AccNo");
+                logoLbl.setText("ICICI Bank ATM");
+                jPwdField.setVisible(false);
+                jPwdField.setText("");
+                jtf.setText("");
+                jtf.setVisible(true);
+                enterBt.setEnabled(true);
+                pinNo = accNo = trType = otherAccNo = accType = null;
+                currentBt.setEnabled(false);
+                savingBt.setEnabled(false);
+                depositBt.setEnabled(false);
+                withdrawBt.setEnabled(false);
+                balanceBt.setEnabled(false);
+                transferBt.setEnabled(false);
+                pinChangeBt.setEnabled(false);
+                flagAccPwd = false;
+            }
+            catch(SQLException sqlexception3)
+            {
+                sqlexception3.printStackTrace();
+            }
+        break MISSING_BLOCK_LABEL_4683;
+        if(s.equals("Saving"))
+        {
+            accType = "Saving";
+            msgLbl.setText("Enter Transaction Choice");
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(true);
+            withdrawBt.setEnabled(true);
+            balanceBt.setEnabled(true);
+            transferBt.setEnabled(true);
+            pinChangeBt.setEnabled(true);
+        } else
+        if(s.equals("Current"))
+        {
+            accType = "Current";
+            msgLbl.setText("Enter Transaction Choice");
+            jPwdField.setVisible(false);
+            jtf.setVisible(false);
+            enterBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(true);
+            withdrawBt.setEnabled(true);
+            balanceBt.setEnabled(true);
+            transferBt.setEnabled(true);
+            pinChangeBt.setEnabled(true);
+        } else
+        if(s.equals("Withdraw"))
+        {
+            trType = "Withdraw";
+            jPwdField.setVisible(false);
+            jtf.setVisible(true);
+            jtf.setText("");
+            enterBt.setEnabled(true);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(false);
+            withdrawBt.setEnabled(false);
+            balanceBt.setEnabled(false);
+            transferBt.setEnabled(false);
+            pinChangeBt.setEnabled(false);
+            msgLbl.setText("Enter Amount");
+            flagAccPwd = false;
+        } else
+        if(s.equals("Deposit"))
+        {
+            trType = "Deposit";
+            jPwdField.setVisible(false);
+            jtf.setVisible(true);
+            jtf.setText("");
+            enterBt.setEnabled(true);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(false);
+            withdrawBt.setEnabled(false);
+            balanceBt.setEnabled(false);
+            transferBt.setEnabled(false);
+            pinChangeBt.setEnabled(false);
+            msgLbl.setText("Enter Amount");
+            flagAccPwd = false;
+        } else
+        if(s.equals("PinChange"))
+        {
+            trType = "PinChange";
+            msgLbl.setText("Enter New Pin No.");
+            jPwdField.setVisible(true);
+            jtf.setVisible(false);
+            jPwdField.setText("");
+            enterBt.setEnabled(true);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(false);
+            withdrawBt.setEnabled(false);
+            balanceBt.setEnabled(false);
+            transferBt.setEnabled(false);
+            pinChangeBt.setEnabled(false);
+            flagAccPwd = true;
+        } else
+        if(s.equals("Balance"))
+            try
+            {
+                trType = "Balance";
+                stmt = con.createStatement(1004, 1007);
+                rs = stmt.executeQuery((new StringBuilder()).append("select * from AccDetails where AccNo='").append(accNo).append("'").toString());
+                if(rs.first())
+                {
+                    java.util.Date date = Calendar.getInstance().getTime();
+                    String s3 = DateFormat.getDateInstance(2).format(date);
+                    String s6 = (new StringBuilder()).append("<html><body><font color='blue'>Balance Statement</font>\nAccNo.\t:\t").append(accNo).append("\nDate\t:\t").append(s3).append("\nBalance\t:\tRs.").append(rs.getString("Balance")).toString();
+                    JOptionPane.showMessageDialog(this, s6, "Balance", 1);
+                } else
+                {
+                    JOptionPane.showMessageDialog(this, "Error occured while retrieveing", "Error", 0);
+                }
+                msgLbl.setText("Enter Transaction Choice");
+                jPwdField.setVisible(false);
+                jtf.setVisible(false);
+                enterBt.setEnabled(false);
+                currentBt.setEnabled(false);
+                savingBt.setEnabled(false);
+                depositBt.setEnabled(true);
+                withdrawBt.setEnabled(true);
+                balanceBt.setEnabled(true);
+                transferBt.setEnabled(true);
+                pinChangeBt.setEnabled(true);
+                rs.close();
+                stmt.close();
+            }
+            catch(SQLException sqlexception)
+            {
+                sqlexception.printStackTrace();
+            }
+        else
+        if(s.equals("Transfer"))
+        {
+            trType = "Transfer";
+            msgLbl.setText("Enter Other's AccNo");
+            jtf.setText("");
+            jPwdField.setVisible(false);
+            jtf.setVisible(true);
+            enterBt.setEnabled(true);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            depositBt.setEnabled(false);
+            withdrawBt.setEnabled(false);
+            balanceBt.setEnabled(false);
+            transferBt.setEnabled(false);
+            pinChangeBt.setEnabled(false);
+            flagAccPwd = false;
+        } else
+        if(s.equals("CE"))
+        {
+            msgLbl.setText("Enter AccNo");
+            jtf.setText("");
+            jPwdField.setText("");
+            enterBt.setEnabled(true);
+            jPwdField.setVisible(false);
+            jtf.setVisible(true);
+            depositBt.setEnabled(false);
+            withdrawBt.setEnabled(false);
+            currentBt.setEnabled(false);
+            savingBt.setEnabled(false);
+            balanceBt.setEnabled(false);
+            transferBt.setEnabled(false);
+            pinChangeBt.setEnabled(false);
+            logoLbl.setText("ICICI Bank ATM");
+            pinNo = accNo = trType = otherAccNo = accType = null;
+            flagAccPwd = false;
+        } else
+        if(flagAccPwd)
+        {
+            if(s.equals("1"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("2"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("3"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("4"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("5"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("6"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("7"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("8"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("9"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("0"))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("."))
+                jPwdField.setText((new StringBuilder()).append(jPwdField.getText()).append(s).toString());
+            else
+            if(s.equals("C"))
+            {
+                char ac[] = jPwdField.getPassword();
+                if(ac != null && ac.length > 0)
+                {
+                    String s4 = String.copyValueOf(ac, 0, ac.length - 1);
+                    jPwdField.setText(s4);
+                }
+            }
+        } else
+        if(!flagAccPwd)
+            if(s.equals("1"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("2"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("3"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("4"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("5"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("6"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("7"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("8"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("9"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("0"))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("."))
+                jtf.setText((new StringBuilder()).append(jtf.getText()).append(s).toString());
+            else
+            if(s.equals("C"))
+            {
+                String s2 = jtf.getText();
+                if(s2 != null && s2.length() > 0)
+                {
+                    String s5 = s2.substring(0, s2.length() - 1);
+                    jtf.setText(s5);
+                }
+            }
+    }
+
+    public static void main(String args[])
+    {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        (new ATMFrame()).setVisible(true);
+    }
+
+    private JButton jBt7;
+    private JButton jBt4;
+    private JButton jBt1;
+    private JButton jBt0;
+    private JButton jBtDec;
+    private JButton jBt2;
+    private JButton jBt5;
+    private JButton jBt8;
+    private JButton jBCancel;
+    private JButton jBt3;
+    private JButton jBt6;
+    private JButton jBt9;
+    private JButton withdrawBt;
+    private JButton depositBt;
+    private JButton transferBt;
+    private JButton balanceBt;
+    private JButton savingBt;
+    private JButton currentBt;
+    private JButton enterBt;
+    private JButton pinChangeBt;
+    private JLabel logoLbl;
+    private JTextField jtf;
+    private JLabel msgLbl;
+    private JPasswordField jPwdField;
+    private String pinNo;
+    private String accNo;
+    private String trType;
+    private String otherAccNo;
+    private String accType;
+    private Connection con;
+    private Statement stmt;
+    private ResultSet rs;
+    private boolean flagAccPwd;
+    private boolean flagTran;
+    private long amt;
+    private int times;
+}
